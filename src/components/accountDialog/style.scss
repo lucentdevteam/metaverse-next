@@ -1,0 +1,29 @@
+.dialog-box {
+  width: 100%;
+  max-width: 675px;
+  height: min-content;
+  padding: 32px;
+  border-radius: 32px;
+  border: 1px solid #5a5d63;
+  background: linear-gradient(
+    205deg,
+    rgba(98, 178, 204, 0.2) 0%,
+    rgba(138, 62, 164, 0.2) 44.79%,
+    rgba(87, 11, 70, 0.2) 100%
+  );
+  backdrop-filter: blur(3px);
+  // opacity: 1;
+  // animation: fadeIn 1s ease-in-out forwards;
+  // overflow: hidden;
+
+  // @keyframes fadeIn {
+  //   0% {
+  //     // opacity: 0;
+  //     max-height: 500px;
+  //   }
+  //   100% {
+  //     // opacity: 1;
+  //     max-height: 900px;
+  //   }
+  // }
+}

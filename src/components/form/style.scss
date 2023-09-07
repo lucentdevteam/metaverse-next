@@ -1,0 +1,143 @@
+@import "../../app/variable";
+
+// For Title
+.title-container {
+  .title {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    color: white;
+  }
+  .sub-title {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-top: 12px;
+    color: white;
+    text-align: center;
+    a {
+      color: #08a0d8;
+      cursor: pointer;
+    }
+  }
+}
+
+// For Inputs
+.input-container.half-width {
+  width: calc(50% - 8px);
+
+  @media (max-width: 768px) {
+    width: calc(100% - 8px);
+  }
+}
+.input-container {
+  position: relative;
+  width: 100%;
+
+  .input-wrapper {
+    position: relative;
+    // padding: 16px;
+    border-radius: 16px;
+    border: 1px solid $foundation-grey-grey-300;
+    background: $foundation-grey-grey-500;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .icon {
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      // position: absolute;
+      &.right {
+        padding-left: 0;
+        padding-right: 16px;
+      }
+    }
+
+    .input-label {
+      position: absolute;
+      left: 40px;
+      top: 16px;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: 0.25px;
+      color: #94979e;
+      transition: 0.3s ease-in;
+      pointer-events: none;
+    }
+
+    .input-field:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 100px #4a4d52 inset !important;
+      border-radius: 13px;
+      border: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-left-radius: 0;
+      -webkit-text-fill-color: #fff !important;
+    }
+    .input-field.select:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 100px #4a4d52 inset !important;
+      border: none;
+      border-radius: 13px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      -webkit-text-fill-color: #fff !important;
+    }
+    .input-field {
+      padding: 16px;
+      outline: none;
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: 0.25px;
+      color: #94979e;
+      // width: 100%;
+      width: calc(100% - 25px);
+      margin-left: auto;
+
+      &:focus,
+      &:active,
+      &.active {
+        & + .input-label {
+          top: -16px;
+          background: $foundation-grey-grey-400;
+          padding: 4px 16px;
+          left: 16px;
+          border: none;
+          outline: none;
+          border-radius: 16px;
+        }
+      }
+
+      &.select {
+        margin-left: 0;
+        width: calc(100% - 18px);
+
+        option {
+          background-color: #f2f2f2; /* Set the background color of each option */
+          color: #333; /* Set the text color of each option */
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
+.error-msg {
+  display: flex;
+  gap: 5px;
+  margin-top: 6px;
+  p {
+    margin: 0;
+    color: #fff;
+  }
+}

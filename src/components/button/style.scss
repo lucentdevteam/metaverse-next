@@ -1,0 +1,39 @@
+@import "../../app/variable";
+
+.primaryBtn,
+.secondaryBtn {
+  display: flex;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 12px;
+  outline: none;
+  background: linear-gradient(216deg, #f75bb1 1.04%, #c392dc 45.73%, #008782 100%);
+  border: none;
+  text-transform: capitalize;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  cursor: pointer;
+  width: 100%;
+
+  &.disabled {
+    cursor: not-allowed;
+    background: transparent;
+    border: 1px solid $foundation-grey-grey-500;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+.secondaryBtn {
+  background: transparent;
+  border: 1px solid $foundation-grey-grey-500;
+}

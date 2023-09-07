@@ -1,0 +1,46 @@
+@import "../../app/variable";
+
+.checkboxContainer {
+  display: flex;
+  height: 24px;
+  align-items: center;
+  margin-top: 0;
+  cursor: pointer;
+  // width: 100%;
+
+  .checkboxes {
+    width: 26px;
+    height: 22px;
+    .checkbox {
+      width: 16px;
+      height: 16px;
+      background-color: $foundation-grey-grey-400;
+      margin-right: 16px;
+    }
+
+    .checkedBox {
+      width: 30px;
+      height: 30px;
+      margin-right: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .checkboxLabel {
+    color: $foundation-grey-grey-300;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 1px;
+    a {
+      color: #3dfff3;
+      font-weight: 600;
+    }
+    &.white-text {
+      color: $color-white;
+    }
+  }
+}
