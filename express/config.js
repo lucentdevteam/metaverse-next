@@ -12,6 +12,14 @@ module.exports = {
         user: process.env.db_user,
         password: process.env.db_password,
         db: process.env.db_name,
+        dialect: process.env.db_dialect,
+        logging: process.env.db_logging,
+        pool: {
+            "max": 5,
+            "min": 0,
+            "acquire": 30000,
+            "idle": 10000
+        },
     },
-    defaultImage: process.env.defaultImage
+    cryptoPassword: process.env.crypto_password,
 }
