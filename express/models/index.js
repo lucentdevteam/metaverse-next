@@ -1,8 +1,10 @@
 const Sequelize = require("sequelize");
-const CONFIG = require("../config")
+const CONFIG = require("../config");
+const mysql2 = require("mysql2")
 const sequelize = new Sequelize(CONFIG.database.db, CONFIG.database.user, CONFIG.database.password, {
   host: CONFIG.database.host,
   dialect: CONFIG.database.dialect,
+  dialectModule: mysql2,
   logging: CONFIG.database.logging == 'true',
   // dialectOptions: {
   //   useUTC: true,
