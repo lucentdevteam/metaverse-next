@@ -42,7 +42,7 @@ exports.registerUser = async (req, res, next) => {
     if (userCreatedData) throw new CustomError(403, "User already registered")
     userCreatedData = await db.UserDetails.create(userObject)
     if (user_type == 'talent') {
-      if ((virtual_worlds == 'yes' && !experience) || (virtual_worlds == 'no' && !familiar_with)) throw new CustomError(403, "Please provide talent full details")
+      if ((virtual_worlds == 'yes' && !experience) || (virtual_worlds == 'no' && !familiar_with?.length)) throw new CustomError(403, "Please provide full detail of talent")
       let user_id = userCreatedData.id
       let talentObject = {
         user_id,
