@@ -26,5 +26,3 @@ app.use(exceptionHandling);
 app.listen(PORT, () => {
   console.log(`APP LISTENING ON PORT ${PORT}`);
 });
-
-export default app;
