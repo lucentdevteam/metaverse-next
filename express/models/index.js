@@ -22,5 +22,6 @@ db.UserDetails = require("./user_details-model")(sequelize);
 db.TalentDetails = require("./talent_details-model")(sequelize);
 
 db.TalentDetails.belongsTo(db.UserDetails, { foreignKey: 'user_id', sourceKey: 'id' })
+db.UserDetails.hasOne(db.TalentDetails, { foreignKey: 'user_id', sourceKey: 'id' })
 
 module.exports = db;
