@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { BASE_URL } from "../components/common/helper";
 
-let API_BASE_URL = "http://localhost:5000/user";
+let API_BASE_URL = "https://metaverse-express-one.vercel.app/user";
 
 export const authApi = createApi({
   reducerPath: "authApi",
