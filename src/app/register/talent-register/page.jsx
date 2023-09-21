@@ -24,12 +24,17 @@ import TalentUserData from "../TalentUserData";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useRegisterUserMutation } from "@/api/authApi";
+import { useDispatch } from "react-redux";
 
 const TalentRegister = () => {
   const router = useRouter();
   const [emailSent, setEmailSent] = useState(false);
   const [loader, setLoader] = useState(false);
   const [talentData, setTalentData] = useState(false);
+
+  const dispatch = useDispatch();
+  const [registerUser] = useRegisterUserMutation();
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -39,12 +44,19 @@ const TalentRegister = () => {
     confirm_password: "",
   });
 
+  const [formAdditionalData, setFormAdditionalData] = useState({
+    types: [],
+    virtualTypes: [],
+    selectedStars: 0,
+  });
+
   const [errors, setErrors] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
     confirm_password: "",
+    clientRegisterError: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -124,6 +136,48 @@ const TalentRegister = () => {
     }
   };
 
+  const handleAdditionalDataSubmit = async ({
+    types,
+    virtualTypes,
+    selectedStars,
+  }) => {
+    if (validateForm()) {
+      try {
+        console.log("Form submitted Additional : ", formData);
+        // setTalentData(true);
+        // setEmailSent(true);
+
+        const registerTalent = {
+          email: formData?.email,
+          password: formData?.password,
+          first_name: formData?.first_name,
+          last_name: formData?.last_name,
+          user_type: "talent",
+          talent_type: types,
+          virtual_worlds:
+            virtualTypes.length === 0 && selectedStars ? "yes" : "no",
+          experience: virtualTypes.length === 0 && selectedStars,
+          familiar_with: virtualTypes,
+        };
+
+        const data = await registerUser(registerTalent);
+
+        if (data?.data?.status === 200) {
+          router.push("/");
+          setEmailSent(formData);
+        } else {
+          const newErrors = { ...errors };
+          newErrors.clientRegisterError = data?.error?.data?.message;
+          console.log({ newErrors });
+          setErrors(newErrors);
+        }
+        console.log({ data });
+      } catch (error) {
+        console.log({ error });
+      }
+    }
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -169,12 +223,12 @@ const TalentRegister = () => {
         <Loader title={loaderTitle} text="...redirecting you..." />
       ) : (
         <>
-          <div className={`animation-card ${emailSent ? " active" : ""}`}>
+          {/* <div className={`animation-card ${emailSent ? " active" : ""}`}>
             <EmailSent
               title="Please check your email for verification"
               subTitle={resendBtn}
             />
-          </div>
+          </div> */}
           {!emailSent && (
             <div
               className={`animation-card-height-one ${
@@ -185,6 +239,8 @@ const TalentRegister = () => {
                 <TalentUserData
                   goToBack={goToBack}
                   setEmailSent={setEmailSent}
+                  handleSubmit={handleAdditionalDataSubmit}
+                  errors={errors}
                 />
               ) : (
                 <div className="signin-container">

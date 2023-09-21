@@ -18,6 +18,8 @@ import Img from "@/assets/images/completed.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useRegisterUserMutation } from "@/api/authApi";
+import { useDispatch } from "react-redux";
 const ClientRegister = () => {
   const router = useRouter();
 
@@ -37,6 +39,7 @@ const ClientRegister = () => {
     email: "",
     password: "",
     confirm_password: "",
+    clientRegisterError: "",
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -50,6 +53,8 @@ const ClientRegister = () => {
     { label: "Canada", value: "canada" },
   ];
   const [country, setCountry] = useState(countries[0]);
+  const dispatch = useDispatch();
+  const [registerUser] = useRegisterUserMutation();
 
   useEffect(() => {
     const containers = document.querySelectorAll(".redirect-button-container");
@@ -110,12 +115,36 @@ const ClientRegister = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Perform form submission logic here
-      console.log("Form submitted:", formData);
-      setEmailSent(true);
+      try {
+        const registerClient = {
+          email: formData?.email,
+          password: formData?.password,
+          first_name: formData?.first_name,
+          last_name: formData?.last_name,
+          country: "india",
+          user_type: "client",
+        };
+
+        const data = await registerUser(registerClient);
+        console.log("data", data);
+        if (data?.data?.status === 200) {
+          router.push("/");
+          setEmailSent(formData);
+        } else {
+          const newErrors = { ...errors };
+          newErrors.clientRegisterError = data?.error?.data?.message;
+          console.log({ newErrors });
+          setErrors(newErrors);
+        }
+      } catch (error) {
+        const newErrors = { ...errors };
+        newErrors.clientRegisterError = error?.data?.message;
+        console.log({ newErrors });
+        setErrors(newErrors);
+      }
     }
   };
 
@@ -137,6 +166,9 @@ const ClientRegister = () => {
       router.push("/account");
     }, 5000);
   };
+
+  console.log({ errors });
+
   const resendBtn = (
     <p>
       Did not get verification mail?{" "}
@@ -162,12 +194,12 @@ const ClientRegister = () => {
         <Loader title={loaderTitle} text="...redirecting you..." />
       ) : (
         <>
-          <div className={`animation-card ${emailSent ? " active" : ""}`}>
+          {/* <div className={`animation-card ${emailSent ? " active" : ""}`}>
             <EmailSent
               title="Please check your email for verification"
               subTitle={resendBtn}
             />
-          </div>
+          </div> */}
           {!emailSent && (
             <div
               className={`animation-card-height-one ${
@@ -283,11 +315,16 @@ const ClientRegister = () => {
                           </div>
                         </Checkbox>
                       </div>
-                      <Button
-                        type="button"
-                        text="Continue  To Register"
-                        clickFun={handleSubmit}
-                      />
+                      <div style={{ width: "100%" }}>
+                        <Button
+                          type="button"
+                          text="Continue  To Register"
+                          clickFun={handleSubmit}
+                        />
+                        {errors.clientRegisterError && (
+                          <ErrorMsg msg={errors.clientRegisterError} />
+                        )}
+                      </div>
 
                       <div className="register-container">
                         <div className="link-to-sign violet-color">

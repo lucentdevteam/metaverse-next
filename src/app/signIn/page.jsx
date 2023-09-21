@@ -15,15 +15,21 @@ import Checkbox from "../../components/checkbox/Checkbox";
 import EmailSent from "../../components/EmailSent/EmailSent";
 import ErrorMsg from "../../components/ErrorMsg";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { useLoginUserMutation } from "@/api/authApi";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const [loginUser] = useLoginUserMutation();
   const [showPassword, setShowPassword] = useState(false);
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const [loginError, setLoginError] = useState("");
+  const router = useRouter();
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -35,10 +41,12 @@ const SignIn = () => {
 
   const handleOnChangeEmail = (e) => {
     setEmail(e.target.value);
+    setLoginError("");
   };
 
   const handleOnChangePassword = (e) => {
     setPassword(e.target.value);
+    setLoginError("");
   };
 
   const validateForm = () => {
@@ -70,9 +78,19 @@ const SignIn = () => {
     return isValid;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validateForm()) {
-      console.log("Logged In Successful");
+      try {
+        const payload = {
+          email,
+          password,
+        };
+        const data = await loginUser(payload).unwrap();
+        router.push("/account");
+      } catch (error) {
+        console.log("Error : ", error);
+        setLoginError(error?.data?.message);
+      }
     }
   };
 
@@ -112,7 +130,10 @@ const SignIn = () => {
               />
               {passwordError && <ErrorMsg msg={passwordError} />}
             </div>
-            <Button type="button" text="Submit" clickFun={handleSubmit} />
+            <div style={{ width: "100%" }}>
+              <Button type="button" text="Submit" clickFun={handleSubmit} />
+              <div>{loginError && <ErrorMsg msg={loginError} />}</div>
+            </div>
 
             <div className="checkboxAndForgetPasswordContainer">
               <Checkbox

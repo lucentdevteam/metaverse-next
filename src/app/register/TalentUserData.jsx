@@ -16,7 +16,7 @@ import RadioUncheckedBlue from "@/assets/images/Radio_checked2.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-const TalentUserData = ({ setEmailSent, goToBack }) => {
+const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
   const [types, setTypes] = useState([]);
   const [virtual, setvirtual] = useState("");
   const [virtualId, setvirtualId] = useState(-1);
@@ -175,6 +175,11 @@ const TalentUserData = ({ setEmailSent, goToBack }) => {
     setTypes(newItems);
   };
 
+  const handleTalentuserData = () => {
+    handleSubmit({ types, virtualTypes, selectedStars });
+    // setEmailSent(true);
+  };
+
   return (
     <div className="signin-container animation-card-height-one">
       <AccountDialog>
@@ -241,20 +246,25 @@ const TalentUserData = ({ setEmailSent, goToBack }) => {
               {renderVirtualContent()}
             </div>
             <div className="devider"></div>
-            <div className="btn-wrap">
-              <button
-                type="button"
-                onClick={goToBack}
-                className="secondaryBtn btn-1"
-              >
-                Back
-              </button>
+            <div style={{ width: "100%" }}>
+              <div className="btn-wrap">
+                <button
+                  type="button"
+                  onClick={goToBack}
+                  className="secondaryBtn btn-1"
+                >
+                  Back
+                </button>
 
-              <Button
-                clickFun={() => setEmailSent(true)}
-                type="button"
-                text="Submit"
-              />
+                <Button
+                  clickFun={handleTalentuserData}
+                  type="button"
+                  text="Submit"
+                />
+              </div>
+              {errors.clientRegisterError && (
+                <ErrorMsg msg={errors.clientRegisterError} />
+              )}
             </div>
 
             <div className="register-container">
