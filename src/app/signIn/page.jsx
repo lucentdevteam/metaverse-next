@@ -27,7 +27,7 @@ import { getIsUserExist } from "@/api/utils";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const { user, googleSignIn, logOut } = UserAuth();
+  const { user, googleSignIn, logOut, appleSignIn } = UserAuth();
   const [loading, setLoading] = useState(true);
   const [loginUser] = useLoginUserMutation();
   const [showPassword, setShowPassword] = useState(false);
@@ -143,6 +143,14 @@ const SignIn = () => {
   const handleSignInWithGoogle = async () => {
     try {
       await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSignInWithApple = async () => {
+    try {
+      await appleSignIn();
     } catch (error) {
       console.log(error);
     }
@@ -279,7 +287,7 @@ const SignIn = () => {
                 </div>
               </div>
               <div className="signInOptionButton">
-                <div className="signInOptionButtonText" onClick={handleSignOut}>
+                <div className="signInOptionButtonText" onClick={handleSignInWithApple}>
                   Sign in with Apple
                 </div>
                 <div>

@@ -5,6 +5,7 @@ import {
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
+  OAuthProvider
 } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -15,6 +16,11 @@ export const AuthContextProvider = ({ children }) => {
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+  };
+
+  const appleSignIn = () => {
+    const provider = new OAuthProvider('apple.com');;
     signInWithPopup(auth, provider);
   };
 
@@ -30,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+    <AuthContext.Provider value={{ user, googleSignIn, logOut, appleSignIn }}>
       {children}
     </AuthContext.Provider>
   );
