@@ -1,12 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WelcomePopup from "../../components/welcome-popup/WelcomePopup";
+import { useSelector } from "react-redux";
+import SignIn from "../signIn/page";
 const AccountPage = () => {
+  const isUserLoggedIn = useSelector((state) => state.user.isUserLoggedIn);
   const [showPopup, setPopup] = useState(true);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="signin-container">
-      {showPopup && <WelcomePopup setPopup={setPopup} />}
+      {isUserLoggedIn ? (
+        showPopup && <WelcomePopup setPopup={setPopup} />
+      ) : (
+        <SignIn />
+      )}
     </div>
   );
 };

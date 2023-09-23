@@ -6,7 +6,12 @@ import TalentProfileIcon from "@/assets/images/Talent.png";
 import ErrorMsg from "@/components/ErrorMsg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetails } from "@/store/slices/userDetailSlice";
+import addData from "@/api/addData";
 const SelectUser = () => {
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.user.userDetails);
   const [activeUser, setActiveUser] = useState("");
 
   const router = useRouter();
@@ -15,19 +20,34 @@ const SelectUser = () => {
     setActiveUser(user);
   };
 
-  console.log({ activeUser });
+  const goTORegister = async () => {
+    const userObj = { ...userDetails };
 
-  const goTORegister = () => {
-    if (activeUser == "client") {
-      router.push("register/client-register");
-    } else if (activeUser == "talent") {
-      router.push("register/talent-register");
+    if (Object.keys(userObj).length > 0) {
+      userObj["user_type"] = activeUser;
     }
+
+      if (activeUser == "client") {
+        if(Object.keys(userObj).length > 0){
+          dispatch(setUserDetails(userObj));
+          const newlyAdded = await addData("users", userObj);
+
+          if(newlyAdded && !newlyAdded?.error){
+            router.push("/account");
+            dispatch(setUserDetails(userObj))
+          }
+        } else {
+          router.push("register/client-register");
+        }
+      } else if (activeUser == "talent") {
+        // dispatch(setUserDetails(userObj));
+        router.push("register/talent-register");
+      }
   };
   return (
     <div className="select-user animation-card-height-one">
       <FormTitle title="JOIN AS A CLIENT OR TALENT" />
-
+      
       <div className="users">
         <div className="user-client" onClick={() => handleUser("client")}>
           <div

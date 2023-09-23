@@ -20,8 +20,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRegisterUserMutation } from "@/api/authApi";
 import { useDispatch } from "react-redux";
+import addData from "@/api/addData";
+import { UserAuth } from "@/firebase/AuthContext";
+import { getIsUserExist } from "@/api/utils";
+import { setUserDetails } from "@/store/slices/userDetailSlice";
 const ClientRegister = () => {
   const router = useRouter();
+  const { user } = UserAuth();
 
   const [emailSent, setEmailSent] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -56,12 +61,12 @@ const ClientRegister = () => {
   const dispatch = useDispatch();
   const [registerUser] = useRegisterUserMutation();
 
-  useEffect(() => {
-    const containers = document.querySelectorAll(".redirect-button-container");
-    containers.forEach((container) => {
-      container.style.display = emailSent ? "none" : "block";
-    });
-  }, [emailSent]);
+  // useEffect(() => {
+  //   const containers = document.querySelectorAll(".redirect-button-container");
+  //   containers.forEach((container) => {
+  //     container.style.display = emailSent ? "none" : "block";
+  //   });
+  // }, [emailSent]);
 
   const validateForm = () => {
     let isValid = true;
@@ -117,34 +122,63 @@ const ClientRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      try {
-        const registerClient = {
-          email: formData?.email,
-          password: formData?.password,
-          first_name: formData?.first_name,
-          last_name: formData?.last_name,
-          country: "india",
-          user_type: "client",
-        };
 
-        const data = await registerUser(registerClient);
-        console.log("data", data);
-        if (data?.data?.status === 200) {
-          router.push("/");
-          setEmailSent(formData);
-        } else {
+    if (validateForm()) {
+      let isExist = await getIsUserExist(formData?.email);
+        if (isExist && Object?.keys(isExist).length > 0) { 
           const newErrors = { ...errors };
-          newErrors.clientRegisterError = data?.error?.data?.message;
-          console.log({ newErrors });
+          newErrors.clientRegisterError = "Email Already Register";
           setErrors(newErrors);
+        } else {
+          const userdata = {
+            email: formData?.email,
+            password: formData?.password,
+            first_name: formData?.first_name,
+            last_name: formData?.last_name,
+            country: "india",
+            user_type: "client",
+            talent_type: "",
+            virtual_worlds: "",
+            experience: "",
+            familiar_with: "",
+            is_password: true,
+          };
+          const newlyAdded = await addData('users',userdata);
+
+          if(newlyAdded && !newlyAdded?.error){
+            router.push("/account");
+            dispatch(setUserDetails(userdata))
+          }
         }
-      } catch (error) {
-        const newErrors = { ...errors };
-        newErrors.clientRegisterError = error?.data?.message;
-        console.log({ newErrors });
-        setErrors(newErrors);
-      }
+
+
+      // try {
+      //   const registerClient = {
+      //     email: formData?.email,
+      //     password: formData?.password,
+      //     first_name: formData?.first_name,
+      //     last_name: formData?.last_name,
+      //     country: "india",
+      //     user_type: "client",
+      //   };
+
+      //   const data = await registerUser(registerClient);
+      //   console.log("data", data);
+      //   if (data?.data?.status === 200) {
+      //     router.push("/");
+      //     setEmailSent(formData);
+      //   } else {
+      //     const newErrors = { ...errors };
+      //     newErrors.clientRegisterError = data?.error?.data?.message;
+      //     console.log({ newErrors });
+      //     setErrors(newErrors);
+      //   }
+      // } catch (error) {
+      //   const newErrors = { ...errors };
+      //   newErrors.clientRegisterError = error?.data?.message;
+      //   console.log({ newErrors });
+      //   setErrors(newErrors);
+      // }
     }
   };
 
@@ -166,8 +200,6 @@ const ClientRegister = () => {
       router.push("/account");
     }, 5000);
   };
-
-  console.log({ errors });
 
   const resendBtn = (
     <p>

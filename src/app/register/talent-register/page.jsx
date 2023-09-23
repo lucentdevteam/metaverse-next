@@ -25,9 +25,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRegisterUserMutation } from "@/api/authApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetails } from "@/store/slices/userDetailSlice";
+import addData from "@/api/addData";
 
 const TalentRegister = () => {
+  const userDetails = useSelector((state) => state.user.userDetails);
+
   const router = useRouter();
   const [emailSent, setEmailSent] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -64,12 +68,12 @@ const TalentRegister = () => {
   const [agreed, setAgreed] = useState(false);
   const [agreedError, setAgreedError] = useState(false);
 
-  useEffect(() => {
-    const containers = document.querySelectorAll(".redirect-button-container");
-    containers.forEach((container) => {
-      container.style.display = emailSent ? "none" : "block";
-    });
-  }, [emailSent]);
+  // useEffect(() => {
+  //   const containers = document.querySelectorAll(".redirect-button-container");
+  //   containers.forEach((container) => {
+  //     container.style.display = emailSent ? "none" : "block";
+  //   });
+  // }, [emailSent]);
 
   const goToBack = () => {
     setTalentData(false);
@@ -129,10 +133,7 @@ const TalentRegister = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Perform form submission logic here
-      console.log("Form submitted:", formData);
       setTalentData(true);
-      // setEmailSent(true);
     }
   };
 
@@ -141,41 +142,60 @@ const TalentRegister = () => {
     virtualTypes,
     selectedStars,
   }) => {
-    if (validateForm()) {
-      try {
-        console.log("Form submitted Additional : ", formData);
-        // setTalentData(true);
-        // setEmailSent(true);
 
-        const registerTalent = {
-          email: formData?.email,
-          password: formData?.password,
-          first_name: formData?.first_name,
-          last_name: formData?.last_name,
-          user_type: "talent",
-          talent_type: types,
-          virtual_worlds:
-            virtualTypes.length === 0 && selectedStars ? "yes" : "no",
-          experience: virtualTypes.length === 0 && selectedStars,
-          familiar_with: virtualTypes,
-        };
+    if (userDetails && Object.keys(userDetails).length > 0 && !userDetails?.is_password) {
+      const userObj = {...userDetails}
+      userObj['user_type'] = 'talent';
+       userObj['talent_type'] = types;
+      userObj['virtual_worlds'] = virtualTypes.length === 0 && selectedStars ? "yes" : "no";
+      userObj['experience'] = virtualTypes.length === 0 && selectedStars;
+      userObj['familiar_with'] = virtualTypes;
+      dispatch(setUserDetails(userObj))
+      const newlyAdded = await addData('users', userObj);
 
-        const data = await registerUser(registerTalent);
-
-        if (data?.data?.status === 200) {
-          router.push("/");
-          setEmailSent(formData);
-        } else {
-          const newErrors = { ...errors };
-          newErrors.clientRegisterError = data?.error?.data?.message;
-          console.log({ newErrors });
-          setErrors(newErrors);
-        }
-        console.log({ data });
-      } catch (error) {
-        console.log({ error });
+      if(newlyAdded && !newlyAdded?.error){
+        router.push("/account");
+        dispatch(setUserDetails(userObj))
       }
-    }
+    } else {
+
+
+    // try {
+      const registerTalent = {
+        email: formData?.email,
+        password: formData?.password,
+        first_name: formData?.first_name,
+        last_name: formData?.last_name,
+        user_type: "talent",
+        talent_type: types,
+        virtual_worlds:
+          virtualTypes.length === 0 && selectedStars ? "yes" : "no",
+        experience: virtualTypes.length === 0 && selectedStars,
+        familiar_with: virtualTypes,
+        is_password: true
+      };
+
+      const newlyAdded = await addData('users', registerTalent);
+
+      if(newlyAdded && !newlyAdded?.error){
+        router.push("/account");
+        dispatch(setUserDetails(registerTalent))
+      }
+    //   const data = await registerUser(registerTalent);
+
+    //   if (data?.data?.status === 200) {
+    //     router.push("/");
+    //     setEmailSent(formData);
+    //   } else {
+    //     const newErrors = { ...errors };
+    //     newErrors.clientRegisterError = data?.error?.data?.message;
+    //     setErrors(newErrors);
+    //   }
+    // } catch (error) {
+    //   console.log({ error });
+    // }
+  }
+
   };
 
   const handleInputChange = (e) => {
@@ -187,7 +207,6 @@ const TalentRegister = () => {
   };
 
   const handleAgreed = () => {
-    // console.log({ keepLoggedIn });
     setAgreedError(false);
     setAgreed(!agreed);
   };
@@ -216,6 +235,12 @@ const TalentRegister = () => {
       agree with the terms.
     </p>
   );
+
+  useEffect(() => {
+    if ( Object?.keys(userDetails).length > 0 && !userDetails?.is_password) {
+      setTalentData(true);
+    }
+  }, [userDetails]);
 
   return (
     <>

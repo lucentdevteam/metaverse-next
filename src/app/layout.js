@@ -2,6 +2,7 @@ import Header from "@/layout/header/Header";
 import "./globals.scss";
 import { Inter } from "next/font/google";
 import { Providers } from "@/store/provider";
+import { AuthContextProvider } from "@/firebase/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,12 +15,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Providers>
+          <AuthContextProvider>
           <div className="layout-container">
             <div className="body-content">
               <Header />
               {children}
             </div>
           </div>
+          </AuthContextProvider>
         </Providers>
       </body>
     </html>

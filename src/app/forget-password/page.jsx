@@ -16,20 +16,18 @@ const ForgetPassword = () => {
   const [showSentEmailMsg, setShowSentEmailMsg] = useState(false);
   const [emailError, setEmailError] = useState("");
 
-  useEffect(() => {
-    const containers = document.querySelectorAll(".redirect-button-container");
-    containers.forEach((container) => {
-      container.style.display = showSentEmailMsg ? "none" : "block";
-    });
-  }, [showSentEmailMsg]);
+  // useEffect(() => {
+  //   const containers = document.querySelectorAll(".redirect-button-container");
+  //   containers.forEach((container) => {
+  //     container.style.display = showSentEmailMsg ? "none" : "block";
+  //   });
+  // }, [showSentEmailMsg]);
 
   const handleSentEmailMsg = () => {
     if (validateForm()) {
       setShowSentEmailMsg(!showSentEmailMsg);
     }
   };
-
-  console.log({ showSentEmailMsg });
 
   const validateForm = () => {
     let isValid = true;

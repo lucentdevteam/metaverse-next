@@ -1,21 +1,23 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp, firebase } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAHhlztOMxKYnlDNETYfZeHMMJjMaUNqNY",
-  authDomain: "flash-chat-de3c3.firebaseapp.com",
-  projectId: "flash-chat-de3c3",
-  storageBucket: "flash-chat-de3c3.appspot.com",
-  messagingSenderId: "868809106125",
-  appId: "1:868809106125:web:81f2740881812983d4ff84",
-  measurementId: "G-GDJJ2KQG38"
+  apiKey: "AIzaSyC_Yjv0kPPEZJKR5M9liAGc3PcO6ami2x0",
+  authDomain: "fir-f6929.firebaseapp.com",
+  projectId: "fir-f6929",
+  storageBucket: "fir-f6929.appspot.com",
+  messagingSenderId: "1026676949293",
+  appId: "1:1026676949293:web:12a8f991d4e7674960d3a4"
 };
 
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  export const auth = getAuth(app);
+
+ export const db = getFirestore(app); 

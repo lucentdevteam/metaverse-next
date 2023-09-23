@@ -3,7 +3,6 @@ dotenv.config();
 dotenv.config({
     path: `./${process.env.NODE_ENV}.env`
 });
-console.log(process.env.db_password,"DB pass");
 module.exports = {
     NODE_ENV: process.env.NODE_ENV,
     HOST: process.env.HOST,
