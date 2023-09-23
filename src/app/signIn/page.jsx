@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import AccountDialog from "../../components/accountDialog/AccountDialog";
 import "./style.scss";
