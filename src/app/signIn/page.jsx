@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AccountDialog from "../../components/accountDialog/AccountDialog";
 import "./style.scss";
 import FormTitle from "../../components/form/FormTitle";
@@ -24,6 +24,7 @@ import {
 } from "@/store/slices/userDetailSlice";
 import { UserAuth } from "@/firebase/AuthContext";
 import { getIsUserExist } from "@/api/utils";
+import ForgetPassword from "../forget-password/page";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,20 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
   const userDetails = useSelector((state) => state);
+  const [showForgetPasswordPage, setShowForgetPasswordPage] = useState(false);
+  const animateSignInFormRef = useRef(false);
+  const [signInAnimatmation, setSignInAnimatmation] = useState(false);
+
+  useEffect(() => {
+    let delay;
+    if (animateSignInFormRef.current && !showForgetPasswordPage) {
+      delay = setTimeout(() => {
+        setSignInAnimatmation(true);
+      }, 100);
+    }
+
+    return () => clearTimeout(delay);
+  }, [showForgetPasswordPage]);
 
   const router = useRouter();
   const handleShowPassword = () => {
@@ -218,101 +233,146 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div className="flex justify-center py-5 px-0 animation-card-height-one">
-      <AccountDialog>
-        <div className="flex gap-8 flex-col justify-center items-center">
-          <FormTitle
-            title="WELCOME BACK"
-            subTitle="Enter your name and email address to receive updates on your activities."
-          />
-          <div className="w-[100%] md:w-[80%] flex gap-8 flex-col justify-center items-center">
-            <div className="w-full">
-              <Input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                icon={<EmailIcon />}
-                value={email}
-                onChange={handleOnChangeEmail}
-                className={`${email != "" && "active"}`}
-              />
-              {emailError && <ErrorMsg msg={emailError} />}
-            </div>
-            <div className="w-full">
-              <Input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                typePass={true}
-                placeholder="Password"
-                icon={<PasswordIcon />}
-                displayEye={showPassword}
-                handleShowPassword={handleShowPassword}
-                value={password}
-                onChange={handleOnChangePassword}
-                className={`${password != "" && "active"}`}
-              />
-              {passwordError && <ErrorMsg msg={passwordError} />}
-            </div>
-            <div className="w-full">
-              <Button type="button" text="Submit" clickFun={handleSubmit} />
-              <div>{loginError && <ErrorMsg msg={loginError} />}</div>
-            </div>
+    <>
+      {!showForgetPasswordPage ? (
+        <div className="signin-container animation-card-height-one">
+          <AccountDialog>
+            <div
+              className={`signIn-form ${
+                animateSignInFormRef.current ? "signIn-form-animated" : ""
+              }`}
+            >
+              {emailError || passwordError ? (
+                <FormTitle
+                  title="WELCOME BACK"
+                  subTitle="Enter your email address and password"
+                  component={
+                    animateSignInFormRef.current ? "signIn-animation" : ""
+                  }
+                  flag={signInAnimatmation ? "signIn-animation-active" : ""}
+                />
+              ) : (
+                <FormTitle
+                  title="WELCOME BACK"
+                  subTitle="Enter your name and email address to receive updates on your activities."
+                  component={
+                    animateSignInFormRef.current ? "signIn-animation" : ""
+                  }
+                  flag={signInAnimatmation ? "signIn-animation-active" : ""}
+                />
+              )}
 
-            <div className="w-full flex justify-between">
-              <Checkbox
-                isChecked={keepLoggedIn}
-                setIsChecked={handleKeepLoggedIn}
-              />
-              <Link
-                className="text-[14px] font-bold leading-normal no-underline foundation-grey-grey-50	"
-                href={"/forget-password"}
+              <div
+                className={`signIn-form-fields ${
+                  animateSignInFormRef.current
+                    ? "signIn-form-fields-animated"
+                    : ""
+                } ${
+                  signInAnimatmation ? "signIn-form-fields-animated-active" : ""
+                }`}
               >
-                {" "}
-                Forget Password{" "}
-              </Link>
-            </div>
-
-            <div className="linePartition">Or</div>
-
-            <div className="flex flex-col md:flex-row justify-between w-full gap-4">
-              <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px] ">
-                <div
-                  className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
-                  onClick={handleSignInWithGoogle}
-                >
-                  Sign in with Google
+                <div className="input-and-error">
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    icon={<EmailIcon />}
+                    value={email}
+                    onChange={handleOnChangeEmail}
+                    className={`${email != "" ? "active" : ""}`}
+                    error={emailError}
+                  >
+                    <ErrorMsg msg={emailError} />
+                  </Input>
                 </div>
-                <div>
-                  <GoogleSignInIcon />{" "}
+                <div className="input-and-error">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    typePass={true}
+                    placeholder="Password"
+                    icon={<PasswordIcon />}
+                    displayEye={showPassword}
+                    handleShowPassword={handleShowPassword}
+                    value={password}
+                    onChange={handleOnChangePassword}
+                    className={`${password != "" && "active"}`}
+                    error={passwordError}
+                  >
+                    <ErrorMsg msg={passwordError} />
+                  </Input>
+                </div>
+                <div style={{ width: "100%" }}>
+                  <Button type="button" text="Submit" clickFun={handleSubmit} />
+                  <div>{loginError && <ErrorMsg msg={loginError} />}</div>
+                </div>
+
+                <div className="checkboxAndForgetPasswordContainer">
+                  <Checkbox
+                    isChecked={keepLoggedIn}
+                    setIsChecked={handleKeepLoggedIn}
+                  />
+                  {/* <Link
+                    className="forgetPasswordContainer"
+                    href={"/forget-password"}
+                  > */}{" "}
+                  <p
+                    className="forgetPasswordContainer"
+                    onClick={() => {
+                      setShowForgetPasswordPage(true);
+                      if (animateSignInFormRef.current) {
+                        setSignInAnimatmation(false);
+                      }
+                      animateSignInFormRef.current = true;
+                    }}
+                  >
+                    Forget Password
+                  </p>
+                  {/* </Link> */}
+                </div>
+
+                <div className="linePartition">Or</div>
+
+                <div className="signInOptions">
+                  <div className="signInOptionButton">
+                    <div
+                      className="signInOptionButtonText"
+                      onClick={handleSignInWithGoogle}
+                    >
+                      Sign in with Google
+                    </div>
+                    <div>
+                      <GoogleSignInIcon />{" "}
+                    </div>
+                  </div>
+                  <div className="signInOptionButton">
+                    <div
+                      className="signInOptionButtonText"
+                      onClick={handleSignInWithApple}
+                    >
+                      Sign in with Apple
+                    </div>
+                    <div>
+                      <AppleSignInIcon />{" "}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="notHaveAccount">
+                  Don’t have an account?{" "}
+                  <Link href={"/register"}> Register here </Link>
                 </div>
               </div>
-              <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px]">
-                <div
-                  className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
-                  onClick={handleSignInWithApple}
-                >
-                  Sign in with Apple
-                </div>
-                <div>
-                  <AppleSignInIcon />{" "}
-                </div>
-              </div>
             </div>
-
-            <div className="text-[20px]  foundation-violet-violet-200 font-medium shadow-md-[0px_4px_4px_rgba(0, 0, 0, 0.25)]">
-              Don’t have an account?{" "}
-              <Link
-                className="font-semibold no-underline foundation-blue-primary-blue-500"
-                href={"/register"}
-              >
-                {" "}
-                Register here{" "}
-              </Link>
-            </div>
-          </div>
+          </AccountDialog>
         </div>
-      </AccountDialog>
-    </div>
+      ) : (
+        <ForgetPassword
+          setShowForgetPasswordPage={setShowForgetPasswordPage}
+          showForgetPasswordPage={showForgetPasswordPage}
+        />
+      )}
+    </>
   );
 };
 

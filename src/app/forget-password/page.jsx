@@ -11,10 +11,14 @@ import ErrorMsg from "@/components/ErrorMsg";
 import Link from "next/link";
 import Image from "next/image";
 
-const ForgetPassword = () => {
+const ForgetPassword = ({
+  showForgetPasswordPage,
+  setShowForgetPasswordPage,
+}) => {
   const [email, setEmail] = useState("");
   const [showSentEmailMsg, setShowSentEmailMsg] = useState(false);
   const [emailError, setEmailError] = useState("");
+  const [forgetPwdFlag, setForgetPwdFlag] = useState(false);
 
   // useEffect(() => {
   //   const containers = document.querySelectorAll(".redirect-button-container");
@@ -22,6 +26,14 @@ const ForgetPassword = () => {
   //     container.style.display = showSentEmailMsg ? "none" : "block";
   //   });
   // }, [showSentEmailMsg]);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setForgetPwdFlag(true);
+    }, 100);
+
+    return () => clearTimeout(delay);
+  }, []);
 
   const handleSentEmailMsg = () => {
     if (validateForm()) {
@@ -51,7 +63,7 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className=" flex justify-center items-center flex-col px-5 py-0">
+    <div className="forget-password-container">
       <div className={`opacity-0 h-0 ${showSentEmailMsg ? " active" : ""}`}>
         <EmailSent
           title="EMAIL SENT"
@@ -62,13 +74,19 @@ const ForgetPassword = () => {
       {!showSentEmailMsg && (
         <div className={`animation-card-height-one`}>
           <AccountDialog>
-            <div className="flex gap-8 flex-col justify-center items-center">
-              <div className="h-[140px]">
+            <div className="forget-password">
+              <div
+                className={`forget-password-img-container ${
+                  forgetPwdFlag ? "adjust-margin" : ""
+                }`}
+              >
                 <Image src={ForgotPasswordImg} loading={"lazy"} />
               </div>
               <FormTitle
                 title="RESET YOUR PASSWORD"
                 subTitle="Enter your  email address and select Send Email."
+                component={showForgetPasswordPage ? "forget-pwd" : ""}
+                flag={forgetPwdFlag ? "forget-pwd-active" : ""}
               />
               <div className="w-full">
                 <Input
@@ -78,20 +96,23 @@ const ForgetPassword = () => {
                   icon={<EmailIcon />}
                   value={email}
                   onChange={handleOnChangeEmail}
-                  className={`${email != "" && "active"}`}
+                  className={`${email != "" ? "active" : ""}`}
                 />
                 {emailError && <ErrorMsg msg={emailError} />}
               </div>
               <div className="w-full h-[1px] bg-[#f1b0ea]"></div>
 
-              <div className="flex justify-between w-full gap-8">
-                <Link href={"/"} className="no-underline">
-                  <div className="flex w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer">
-                    <div className="text-[20px] font-semibold leading-normal button-text-with-gradient-one ">
-                      Back To Sign in
-                    </div>
+              <div
+                className="forget-password-Buttons"
+                onClick={() => setShowForgetPasswordPage(false)}
+              >
+                {/* <Link href={"/"}> */}
+                <div className="forget-password-Button">
+                  <div className="forget-password-Button-text">
+                    Back To Sign in
                   </div>
-                </Link>
+                </div>
+                {/* </Link> */}
                 <div
                   className="flex w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer bgGradientOne"
                   onClick={handleSentEmailMsg}

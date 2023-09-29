@@ -8,7 +8,7 @@
   .animation-card {
     opacity: 0;
     height: 0;
-    
+
     &.active {
       transition: all 1s;
       opacity: 1;
@@ -22,9 +22,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     .forget-password-img-container {
       height: 140px;
+      transition: margin 0.5s ease;
+    }
+
+    .adjust-margin {
+      margin-bottom: 6rem;
     }
 
     .forget-password-divider {
@@ -40,7 +46,10 @@
       gap: 32px;
 
       .bgGradient {
-        background: var(--gradient, linear-gradient(216deg, #f75bb1 1.04%, #c392dc 45.73%, #008782 100%));
+        background: var(
+          --gradient,
+          linear-gradient(216deg, #f75bb1 1.04%, #c392dc 45.73%, #008782 100%)
+        );
       }
 
       a {
@@ -74,7 +83,10 @@
           font-style: normal;
           font-weight: 600;
           line-height: normal;
-          background: var(--gradient, linear-gradient(216deg, #f75bb1 1.04%, #c392dc 45.73%, #008782 100%));
+          background: var(
+            --gradient,
+            linear-gradient(216deg, #f75bb1 1.04%, #c392dc 45.73%, #008782 100%)
+          );
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;

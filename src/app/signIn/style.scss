@@ -53,11 +53,15 @@
           font-weight: 700;
           line-height: normal;
           text-decoration: none;
+
+          &:hover {
+            cursor: pointer;
+          }
         }
 
         @media (max-width: 468px) {
           flex-direction: column;
-          gap: 10px; 
+          gap: 10px;
 
           .forgetPasswordContainer {
             padding-left: 10px;
@@ -149,5 +153,19 @@
         width: 100%;
       }
     }
+
+    .signIn-form-fields-animated {
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .signIn-form-fields-animated-active {
+      opacity: 1;
+      margin-top: 6rem;
+    }
+  }
+
+  .signIn-form-animated {
+    position: relative;
   }
 }

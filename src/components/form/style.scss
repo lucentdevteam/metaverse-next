@@ -25,6 +25,26 @@
   }
 }
 
+.forget-pwd {
+  position: absolute;
+  top: 0;
+  transition: transform 0.5s ease;
+}
+
+.forget-pwd-active {
+  transform: translateY(200%);
+}
+
+.signIn-animation {
+  position: absolute;
+  top: 50%;
+  transition: transform 0.5s ease;
+}
+
+.signIn-animation-active {
+  transform: translateY(-400%);
+}
+
 // For Inputs
 .input-container.half-width {
   width: calc(50% - 8px);
@@ -47,6 +67,8 @@
     display: flex;
     gap: 8px;
     align-items: center;
+    margin-bottom: 0rem;
+    transition: margin 0.5s;
 
     .icon {
       display: flex;
@@ -131,6 +153,12 @@
       }
     }
   }
+
+  .input-error-wrapper {
+    border: 1px solid $foundation-red-red-300;
+    background: transparent;
+    margin-bottom: 1rem;
+  }
 }
 .error-msg {
   display: flex;
@@ -140,4 +168,13 @@
     margin: 0;
     color: #fff;
   }
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1.5s ease, transform 0.5s ease;
+  bottom: -50px;
+}
+
+.error-msg.show {
+  opacity: 1;
+  transform: translateY(-20px);
 }
