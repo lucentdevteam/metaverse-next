@@ -9,12 +9,12 @@ const Register = () => {
   const UserRegisteration = () => {};
 
   return (
-    <div className="flex justify-center py-5 px-0">
+    <div className="register-page">
       {/* For Choose User */}
       <AccountDialog>
-        <div className="flex gap-8 flex-col">
+        <div className="register-container  ">
           <SelectUser />
-          <div className="text-[20px] font-medium leading-normal text-center foundation-violet-violet-200 ">
+          <div className="link-to-sign ">
             Already have an account?{" "}
             <Link
               className="font-semibold no-underline foundation-blue-primary-blue-500"
@@ -24,6 +24,17 @@ const Register = () => {
             </Link>
           </div>
         </div>
+
+        {/* <div className="register-page">
+      <AccountDialog>
+        <div className="register-container">
+          <SelectUser />
+          <div className="link-to-sign">
+            Already have an account? <Link href="/">Sign In</Link>
+          </div>
+        </div>
+      </AccountDialog>
+    </div> */}
       </AccountDialog>
     </div>
   );

@@ -113,8 +113,8 @@ const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
               metaverse?
             </h4>
 
-            <div className="virtual-content-rating-details">
-              <div className="virtual-content-rating-details-text">
+            <div className="py-5 px-0 flex justify-between max-m">
+              <div className="">
                 <div className="virtual-content-rating-details-text-details">
                   1 = I’m new to this.{" "}
                 </div>

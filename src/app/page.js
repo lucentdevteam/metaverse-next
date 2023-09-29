@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import { getIsUserExist } from "@/api/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import SignInComponent from "@/components/signInComponent/SignInComponent";
 
 export default function Home() {
   const userDetails = useSelector((state) => state.user);

@@ -114,7 +114,7 @@ const ForgetPassword = ({
                 </div>
                 {/* </Link> */}
                 <div
-                  className="flex w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer bgGradientOne"
+                  className="flex w-full md:w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer bgGradientOne"
                   onClick={handleSentEmailMsg}
                 >
                   <div className="textWhite text-[20px] font-semibold leading-normal">
