@@ -41,14 +41,14 @@
 }
 
 .animation-card {
-  opacity: 0;
-  height: 0;
-  transition: all 1s;
+  // opacity: 0;
+  // height: 0;
+  // transition: all 1s;
 
-  &.active {
-    opacity: 1;
-    height: auto;
-  }
+  // &.active {
+  //   opacity: 1;
+  //   height: auto;
+  // }
 }
 
 .animation-card-height-one {
@@ -84,4 +84,21 @@
   @media (max-width: 768px) {
     margin-top: 20px;
   }
+}
+
+// 
+
+.card {
+  background: black;
+  color: white;
+  padding: 3rem 5rem;
+  border-radius: 20px;
+}
+
+.expand {
+  width: 30rem;
+}
+
+.expand p {
+  padding-top: 2rem;
 }

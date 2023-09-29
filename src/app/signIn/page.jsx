@@ -218,15 +218,15 @@ const SignIn = () => {
   }, [user]);
 
   return (
-    <div className="signin-container animation-card-height-one">
+    <div className="flex justify-center py-5 px-0 animation-card-height-one">
       <AccountDialog>
-        <div className="signIn-form">
+        <div className="flex gap-8 flex-col justify-center items-center">
           <FormTitle
             title="WELCOME BACK"
             subTitle="Enter your name and email address to receive updates on your activities."
           />
-          <div className="signIn-form-fields">
-            <div className="input-and-error">
+          <div className="w-[100%] md:w-[80%] flex gap-8 flex-col justify-center items-center">
+            <div className="w-full">
               <Input
                 type="email"
                 name="email"
@@ -238,7 +238,7 @@ const SignIn = () => {
               />
               {emailError && <ErrorMsg msg={emailError} />}
             </div>
-            <div className="input-and-error">
+            <div className="w-full">
               <Input
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -253,18 +253,18 @@ const SignIn = () => {
               />
               {passwordError && <ErrorMsg msg={passwordError} />}
             </div>
-            <div style={{ width: "100%" }}>
+            <div className="w-full">
               <Button type="button" text="Submit" clickFun={handleSubmit} />
               <div>{loginError && <ErrorMsg msg={loginError} />}</div>
             </div>
 
-            <div className="checkboxAndForgetPasswordContainer">
+            <div className="w-full flex justify-between">
               <Checkbox
                 isChecked={keepLoggedIn}
                 setIsChecked={handleKeepLoggedIn}
               />
               <Link
-                className="forgetPasswordContainer"
+                className="text-[14px] font-bold leading-normal no-underline foundation-grey-grey-50	"
                 href={"/forget-password"}
               >
                 {" "}
@@ -274,10 +274,10 @@ const SignIn = () => {
 
             <div className="linePartition">Or</div>
 
-            <div className="signInOptions">
-              <div className="signInOptionButton">
+            <div className="flex flex-col md:flex-row justify-between w-full gap-4">
+              <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px] ">
                 <div
-                  className="signInOptionButtonText"
+                  className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
                   onClick={handleSignInWithGoogle}
                 >
                   Sign in with Google
@@ -286,8 +286,11 @@ const SignIn = () => {
                   <GoogleSignInIcon />{" "}
                 </div>
               </div>
-              <div className="signInOptionButton">
-                <div className="signInOptionButtonText" onClick={handleSignInWithApple}>
+              <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px]">
+                <div
+                  className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
+                  onClick={handleSignInWithApple}
+                >
                   Sign in with Apple
                 </div>
                 <div>
@@ -296,9 +299,15 @@ const SignIn = () => {
               </div>
             </div>
 
-            <div className="notHaveAccount">
+            <div className="text-[20px]  foundation-violet-violet-200 font-medium shadow-md-[0px_4px_4px_rgba(0, 0, 0, 0.25)]">
               Don’t have an account?{" "}
-              <Link href={"/register"}> Register here </Link>
+              <Link
+                className="font-semibold no-underline foundation-blue-primary-blue-500"
+                href={"/register"}
+              >
+                {" "}
+                Register here{" "}
+              </Link>
             </div>
           </div>
         </div>

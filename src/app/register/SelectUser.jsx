@@ -27,27 +27,27 @@ const SelectUser = () => {
       userObj["user_type"] = activeUser;
     }
 
-      if (activeUser == "client") {
-        if(Object.keys(userObj).length > 0){
-          dispatch(setUserDetails(userObj));
-          const newlyAdded = await addData("users", userObj);
+    if (activeUser == "client") {
+      if (Object.keys(userObj).length > 0) {
+        dispatch(setUserDetails(userObj));
+        const newlyAdded = await addData("users", userObj);
 
-          if(newlyAdded && !newlyAdded?.error){
-            router.push("/account");
-            dispatch(setUserDetails(userObj))
-          }
-        } else {
-          router.push("register/client-register");
+        if (newlyAdded && !newlyAdded?.error) {
+          router.push("/account");
+          dispatch(setUserDetails(userObj));
         }
-      } else if (activeUser == "talent") {
-        // dispatch(setUserDetails(userObj));
-        router.push("register/talent-register");
+      } else {
+        router.push("register/client-register");
       }
+    } else if (activeUser == "talent") {
+      // dispatch(setUserDetails(userObj));
+      router.push("register/talent-register");
+    }
   };
   return (
     <div className="select-user animation-card-height-one">
       <FormTitle title="JOIN AS A CLIENT OR TALENT" />
-      
+
       <div className="users">
         <div className="user-client" onClick={() => handleUser("client")}>
           <div

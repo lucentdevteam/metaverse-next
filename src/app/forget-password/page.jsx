@@ -51,8 +51,8 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="forget-password-container">
-      <div className={`animation-card ${showSentEmailMsg ? " active" : ""}`}>
+    <div className=" flex justify-center items-center flex-col px-5 py-0">
+      <div className={`opacity-0 h-0 ${showSentEmailMsg ? " active" : ""}`}>
         <EmailSent
           title="EMAIL SENT"
           subTitle="Please check your email and follow the prompt"
@@ -62,15 +62,15 @@ const ForgetPassword = () => {
       {!showSentEmailMsg && (
         <div className={`animation-card-height-one`}>
           <AccountDialog>
-            <div className="forget-password">
-              <div className="forget-password-img-container">
+            <div className="flex gap-8 flex-col justify-center items-center">
+              <div className="h-[140px]">
                 <Image src={ForgotPasswordImg} loading={"lazy"} />
               </div>
               <FormTitle
                 title="RESET YOUR PASSWORD"
                 subTitle="Enter your  email address and select Send Email."
               />
-              <div style={{ width: "100%" }}>
+              <div className="w-full">
                 <Input
                   type="email"
                   name="email"
@@ -82,21 +82,23 @@ const ForgetPassword = () => {
                 />
                 {emailError && <ErrorMsg msg={emailError} />}
               </div>
-              <div className="forget-password-divider"></div>
+              <div className="w-full h-[1px] bg-[#f1b0ea]"></div>
 
-              <div className="forget-password-Buttons">
-                <Link href={"/"}>
-                  <div className="forget-password-Button">
-                    <div className="forget-password-Button-text">
+              <div className="flex justify-between w-full gap-8">
+                <Link href={"/"} className="no-underline">
+                  <div className="flex w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer">
+                    <div className="text-[20px] font-semibold leading-normal button-text-with-gradient-one ">
                       Back To Sign in
                     </div>
                   </div>
                 </Link>
                 <div
-                  className="forget-password-Button bgGradient"
+                  className="flex w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer bgGradientOne"
                   onClick={handleSentEmailMsg}
                 >
-                  <div className="textWhite">Send Email</div>
+                  <div className="textWhite text-[20px] font-semibold leading-normal">
+                    Send Email
+                  </div>
                 </div>
               </div>
             </div>

@@ -125,32 +125,31 @@ const ClientRegister = () => {
 
     if (validateForm()) {
       let isExist = await getIsUserExist(formData?.email);
-        if (isExist && Object?.keys(isExist).length > 0) { 
-          const newErrors = { ...errors };
-          newErrors.clientRegisterError = "Email Already Register";
-          setErrors(newErrors);
-        } else {
-          const userdata = {
-            email: formData?.email,
-            password: formData?.password,
-            first_name: formData?.first_name,
-            last_name: formData?.last_name,
-            country: "india",
-            user_type: "client",
-            talent_type: "",
-            virtual_worlds: "",
-            experience: "",
-            familiar_with: "",
-            is_password: true,
-          };
-          const newlyAdded = await addData('users',userdata);
+      if (isExist && Object?.keys(isExist).length > 0) {
+        const newErrors = { ...errors };
+        newErrors.clientRegisterError = "Email Already Register";
+        setErrors(newErrors);
+      } else {
+        const userdata = {
+          email: formData?.email,
+          password: formData?.password,
+          first_name: formData?.first_name,
+          last_name: formData?.last_name,
+          country: "india",
+          user_type: "client",
+          talent_type: "",
+          virtual_worlds: "",
+          experience: "",
+          familiar_with: "",
+          is_password: true,
+        };
+        const newlyAdded = await addData("users", userdata);
 
-          if(newlyAdded && !newlyAdded?.error){
-            router.push("/account");
-            dispatch(setUserDetails(userdata))
-          }
+        if (newlyAdded && !newlyAdded?.error) {
+          router.push("/account");
+          dispatch(setUserDetails(userdata));
         }
-
+      }
 
       // try {
       //   const registerClient = {
@@ -238,15 +237,15 @@ const ClientRegister = () => {
                 emailSent ? "" : " active"
               }`}
             >
-              <div className="signin-container">
+              <div className="flex justify-center py-5 px-0">
                 <AccountDialog>
-                  <div className="signIn-form">
+                  <div className="flex gap-8 flex-col justify-center items-center">
                     <FormTitle
                       title="JOIN AS A CLIENT"
                       subTitle="Enter your name and  email address to receive updates  on your activities."
                     />
-                    <div className="signIn-form-fields full-width">
-                      <div className="fields-half-width">
+                    <div className="w-[100%] flex gap-8 flex-col justify-center items-center">
+                      <div className="flex justify-between gap-4 w-full max-md:flex-col max-md:justify-center max-md:w-full max-md:gap-8">
                         <Input
                           type="text"
                           name="first_name"
@@ -288,7 +287,7 @@ const ClientRegister = () => {
                       >
                         {errors.email && <ErrorMsg msg={errors.email} />}
                       </Input>
-                      <div className="fields-half-width">
+                      <div className="flex justify-between gap-4 w-full max-md:flex-col max-md:justify-center max-md:w-full max-md:gap-8">
                         <Input
                           type={showPassword ? "text" : "password"}
                           name="password"
@@ -335,14 +334,14 @@ const ClientRegister = () => {
                         value={country}
                         options={countries}
                       />
-                      <div className="checkboxAndForgetPasswordContainer">
+                      <div className="w-full flex justify-between">
                         <Checkbox
                           isChecked={agreed}
                           setIsChecked={handleAgreed}
                           label={termConditionText}
                           whiteLabel={true}
                         >
-                          <div className="term-condition-text">
+                          <div className="mt-0 max-md:mt-5">
                             {agreedError && <ErrorMsg msg={agreedError} />}
                           </div>
                         </Checkbox>
@@ -358,10 +357,13 @@ const ClientRegister = () => {
                         )}
                       </div>
 
-                      <div className="register-container">
-                        <div className="link-to-sign violet-color">
+                      <div className="flex gap-8 flex-col">
+                        <div className="text-[20px] font-medium leading-normal foundation-violet-violet-200 text-center">
                           Already have an account?{" "}
-                          <Link className="blue-color font-500" href={"/"}>
+                          <Link
+                            className="font-medium no-underline foundation-blue-primary-blue-500"
+                            href={"/"}
+                          >
                             Sign In
                           </Link>
                         </div>

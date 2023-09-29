@@ -142,25 +142,27 @@ const TalentRegister = () => {
     virtualTypes,
     selectedStars,
   }) => {
+    if (
+      userDetails &&
+      Object.keys(userDetails).length > 0 &&
+      !userDetails?.is_password
+    ) {
+      const userObj = { ...userDetails };
+      userObj["user_type"] = "talent";
+      userObj["talent_type"] = types;
+      userObj["virtual_worlds"] =
+        virtualTypes.length === 0 && selectedStars ? "yes" : "no";
+      userObj["experience"] = virtualTypes.length === 0 && selectedStars;
+      userObj["familiar_with"] = virtualTypes;
+      dispatch(setUserDetails(userObj));
+      const newlyAdded = await addData("users", userObj);
 
-    if (userDetails && Object.keys(userDetails).length > 0 && !userDetails?.is_password) {
-      const userObj = {...userDetails}
-      userObj['user_type'] = 'talent';
-       userObj['talent_type'] = types;
-      userObj['virtual_worlds'] = virtualTypes.length === 0 && selectedStars ? "yes" : "no";
-      userObj['experience'] = virtualTypes.length === 0 && selectedStars;
-      userObj['familiar_with'] = virtualTypes;
-      dispatch(setUserDetails(userObj))
-      const newlyAdded = await addData('users', userObj);
-
-      if(newlyAdded && !newlyAdded?.error){
+      if (newlyAdded && !newlyAdded?.error) {
         router.push("/account");
-        dispatch(setUserDetails(userObj))
+        dispatch(setUserDetails(userObj));
       }
     } else {
-
-
-    // try {
+      // try {
       const registerTalent = {
         email: formData?.email,
         password: formData?.password,
@@ -172,30 +174,29 @@ const TalentRegister = () => {
           virtualTypes.length === 0 && selectedStars ? "yes" : "no",
         experience: virtualTypes.length === 0 && selectedStars,
         familiar_with: virtualTypes,
-        is_password: true
+        is_password: true,
       };
 
-      const newlyAdded = await addData('users', registerTalent);
+      const newlyAdded = await addData("users", registerTalent);
 
-      if(newlyAdded && !newlyAdded?.error){
+      if (newlyAdded && !newlyAdded?.error) {
         router.push("/account");
-        dispatch(setUserDetails(registerTalent))
+        dispatch(setUserDetails(registerTalent));
       }
-    //   const data = await registerUser(registerTalent);
+      //   const data = await registerUser(registerTalent);
 
-    //   if (data?.data?.status === 200) {
-    //     router.push("/");
-    //     setEmailSent(formData);
-    //   } else {
-    //     const newErrors = { ...errors };
-    //     newErrors.clientRegisterError = data?.error?.data?.message;
-    //     setErrors(newErrors);
-    //   }
-    // } catch (error) {
-    //   console.log({ error });
-    // }
-  }
-
+      //   if (data?.data?.status === 200) {
+      //     router.push("/");
+      //     setEmailSent(formData);
+      //   } else {
+      //     const newErrors = { ...errors };
+      //     newErrors.clientRegisterError = data?.error?.data?.message;
+      //     setErrors(newErrors);
+      //   }
+      // } catch (error) {
+      //   console.log({ error });
+      // }
+    }
   };
 
   const handleInputChange = (e) => {
@@ -237,7 +238,7 @@ const TalentRegister = () => {
   );
 
   useEffect(() => {
-    if ( Object?.keys(userDetails).length > 0 && !userDetails?.is_password) {
+    if (Object?.keys(userDetails).length > 0 && !userDetails?.is_password) {
       setTalentData(true);
     }
   }, [userDetails]);
@@ -268,15 +269,15 @@ const TalentRegister = () => {
                   errors={errors}
                 />
               ) : (
-                <div className="signin-container">
+                <div className="flex justify-center py-5 px-0">
                   <AccountDialog>
-                    <div className="signIn-form">
+                    <div className="flex gap-8 flex-col justify-center items-center">
                       <FormTitle
                         title="JOIN AS A TALENT"
                         subTitle="Enter your name and  email address to receive updates  on your activities."
                       />
-                      <div className="signIn-form-fields full-width">
-                        <div className="fields-half-width">
+                      <div className="w-[100%] flex gap-8 flex-col justify-center items-center">
+                        <div className="flex justify-between gap-4 w-full max-md:flex-col max-md:justify-center max-md:w-full max-md:gap-8">
                           <Input
                             type="text"
                             name="first_name"
@@ -322,7 +323,7 @@ const TalentRegister = () => {
                         >
                           {errors.email && <ErrorMsg msg={errors.email} />}
                         </Input>
-                        <div className="fields-half-width">
+                        <div className="flex justify-between gap-4 w-full max-md:flex-col max-md:justify-center max-md:w-full max-md:gap-8">
                           <Input
                             type={showPassword ? "text" : "password"}
                             name="password"
@@ -384,18 +385,24 @@ const TalentRegister = () => {
 
                         <div className="linePartition">Or</div>
 
-                        <div className="signInOptions">
-                          <div className="signInOptionButton">
-                            <div className="signInOptionButtonText">
-                              Join with Google
+                        <div className="flex flex-col md:flex-row justify-between w-full gap-4">
+                          <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px] ">
+                            <div
+                              className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
+                              // onClick={handleSignInWithGoogle}
+                            >
+                              Sign in with Google
                             </div>
                             <div>
                               <GoogleSignInIcon />{" "}
                             </div>
                           </div>
-                          <div className="signInOptionButton">
-                            <div className="signInOptionButtonText">
-                              Join with Apple
+                          <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px]">
+                            <div
+                              className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
+                              // onClick={handleSignInWithApple}
+                            >
+                              Sign in with Apple
                             </div>
                             <div>
                               <AppleSignInIcon />{" "}
@@ -403,9 +410,16 @@ const TalentRegister = () => {
                           </div>
                         </div>
 
-                        <div className="notHaveAccount">
-                          Already have an account?{" "}
-                          <Link href={"/"}>Sign In</Link>
+                        <div className="flex gap-8 flex-col">
+                          <div className="text-[20px] font-medium leading-normal foundation-violet-violet-200 text-center">
+                            Already have an account?{" "}
+                            <Link
+                              className="font-medium no-underline foundation-blue-primary-blue-500"
+                              href={"/"}
+                            >
+                              Sign In
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>
