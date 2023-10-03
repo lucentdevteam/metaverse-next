@@ -9,6 +9,12 @@
     line-height: normal;
     text-align: center;
     color: white;
+    animation:  titleFadeIn 1s ease-in-out;
+
+    @keyframes titleFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   }
   .sub-title {
     font-size: 20px;
