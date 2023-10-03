@@ -107,14 +107,14 @@ const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
     switch (virtualId) {
       case 0:
         return (
-          <div className="text-white mt-5">
-            <h4 className="text-[32px] font-light text-left text-white m-0 tracking-[1px] ">
+          <div className="virtual-content">
+            <h4 className="virtual-content-title">
               How would you describe your experience with building in the
               metaverse?
             </h4>
 
-            <div className="py-5 px-0 flex justify-between max-m">
-              <div className="">
+            <div className="virtual-content-rating-details">
+              <div className="virtual-content-rating-details-text">
                 <div className="virtual-content-rating-details-text-details">
                   1 = I’m new to this.{" "}
                 </div>
@@ -131,8 +131,8 @@ const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
 
       case 1:
         return (
-          <div className="text-white mt-5">
-            <h4 className="text-[32px] font-light text-left text-white m-0 tracking-[1px] ">
+          <div className="virtual-content">
+            <h4 className="virtual-content-title">
               What type of 3D creation software are you familiar with?
             </h4>
 
@@ -181,23 +181,21 @@ const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
   };
 
   return (
-    <div className="flex justify-center py-5 px-0 animation-card-height-one">
+    <div className="signin-container animation-card-height-one">
       <AccountDialog>
         <div className="signIn-form">
           <FormTitle
             title="YOU ARE ALMOST THERE"
             subTitle="Please fill out the rest information"
           />
-          <div className="border border-[#686b72] w-full"></div>
-          <div className="w-full flex gap-8 flex-col justify-center items-center full-width">
+          <div className="devider"></div>
+          <div className="tlatent-user-data full-width">
             <div className="types-container">
-              <h4 className="text-[32px] font-light text-left tracking-[1px] text-white mx-3">
-                Please select talent type
-              </h4>
-              <div className="flex justify-between flex-wrap">
+              <h4 className="title">Please select talent type</h4>
+              <div className="types-list">
                 {typesList.map((item) => {
                   return (
-                    <div className="min-w-[33.33%] mb-3">
+                    <div className="type-item">
                       <div className="checkboxAndForgetPasswordContainer">
                         <Checkbox
                           isChecked={types.includes(item)}
@@ -212,15 +210,13 @@ const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
               </div>
             </div>
             <div className="devider"></div>
-            <div className="flex justify-between flex-wrap">
-              <h4 className="text-[32px] font-light text-left tracking-[1px] text-white mx-3">
-                Have you built virtual worlds before?
-              </h4>
-              <div className="flex justify-between flex-wrap w-full">
+            <div className="virtual-container">
+              <h4 className="title">Have you built virtual worlds before?</h4>
+              <div className="virtual-list">
                 {virtuals.map((item, i) => {
                   return (
-                    <div className="w-full">
-                      <div className="inline-flex mb-3 cursor-pointer rounded-[32px] border border-[#315866] bg-[#1a272c] px-4 py-[7px]  text-white text-[16px]">
+                    <div className="virtual-item">
+                      <div className="virtual-item-span">
                         <Image
                           src={
                             item.title == virtual
@@ -233,7 +229,6 @@ const TalentUserData = ({ setEmailSent, goToBack, handleSubmit, errors }) => {
                           }}
                         />
                         <label
-                          className="cursor-pointer pl-[10px] flex justify-center items-center"
                           onClick={() => {
                             setvirtual(item.title);
                             setvirtualId(i);

@@ -269,140 +269,151 @@ const TalentRegister = () => {
                   errors={errors}
                 />
               ) : (
-                <div className="flex justify-center py-5 px-0">
+                <div className="signin-container">
                   <AccountDialog>
-                    <div className="flex gap-8 flex-col justify-center items-center">
+                    <div className="signIn-form">
                       <FormTitle
                         title="JOIN AS A TALENT"
                         subTitle="Enter your name and  email address to receive updates  on your activities."
                       />
-                      <div className="w-[100%] flex gap-8 flex-col justify-center items-center">
-                        <div className="flex justify-between gap-4 w-full max-md:flex-col max-md:justify-center max-md:w-full max-md:gap-8">
-                          <Input
-                            type="text"
-                            name="first_name"
-                            placeholder="First Name"
-                            icon={<UserIcon />}
-                            halfWidth={true}
-                            value={formData.first_name}
-                            onChange={handleInputChange}
-                            className={`${
-                              formData.first_name != "" && "active"
-                            }`}
-                          >
-                            {errors.first_name && (
+                      <div className="signIn-form-fields full-width">
+                        <div className="fields-half-width">
+                          <div className="input-and-error">
+                            <Input
+                              type="text"
+                              name="first_name"
+                              placeholder="First Name"
+                              icon={<UserIcon />}
+                              // halfWidth={true}
+                              value={formData.first_name}
+                              onChange={handleInputChange}
+                              className={`${
+                                formData.first_name != "" && "active"
+                              }`}
+                              error={errors.first_name}
+                            >
                               <ErrorMsg msg={errors.first_name} />
-                            )}
-                          </Input>
-
-                          <Input
-                            type="text"
-                            name="last_name"
-                            placeholder="Last Name"
-                            icon={<UserIcon />}
-                            value={formData.last_name}
-                            onChange={handleInputChange}
-                            halfWidth={true}
-                            className={`${
-                              formData.last_name != "" && "active"
-                            }`}
-                          >
-                            {errors.last_name && (
+                            </Input>
+                          </div>
+                          <div className="input-and-error">
+                            <Input
+                              type="text"
+                              name="last_name"
+                              placeholder="Last Name"
+                              icon={<UserIcon />}
+                              value={formData.last_name}
+                              onChange={handleInputChange}
+                              // halfWidth={true}
+                              className={`${
+                                formData.last_name != "" && "active"
+                              }`}
+                              error={errors.last_name}
+                            >
                               <ErrorMsg msg={errors.last_name} />
-                            )}
+                            </Input>
+                          </div>
+                        </div>
+                        <div className="input-and-error">
+                          <Input
+                            type="email"
+                            name="email"
+                            placeholder="Email Address"
+                            icon={<EmailIcon />}
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            className={`${formData.email != "" && "active"}`}
+                            error={errors.email}
+                          >
+                            <ErrorMsg msg={errors.email} />
                           </Input>
                         </div>
-                        <Input
-                          type="email"
-                          name="email"
-                          placeholder="Email Address"
-                          icon={<EmailIcon />}
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className={`${formData.email != "" && "active"}`}
-                        >
-                          {errors.email && <ErrorMsg msg={errors.email} />}
-                        </Input>
-                        <div className="flex justify-between gap-4 w-full max-md:flex-col max-md:justify-center max-md:w-full max-md:gap-8">
-                          <Input
-                            type={showPassword ? "text" : "password"}
-                            name="password"
-                            typePass={true}
-                            placeholder="Password"
-                            icon={<PasswordIcon />}
-                            displayEye={showPassword}
-                            handleShowPassword={() =>
-                              setShowPassword(!showPassword)
-                            }
-                            halfWidth={true}
-                            value={formData.password}
-                            onChange={handleInputChange}
-                            className={`${formData.password != "" && "active"}`}
-                          >
-                            {errors.password && (
+                        <div className="fields-half-width">
+                          <div className="input-and-error">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              name="password"
+                              typePass={true}
+                              placeholder="Password"
+                              icon={<PasswordIcon />}
+                              displayEye={showPassword}
+                              handleShowPassword={() =>
+                                setShowPassword(!showPassword)
+                              }
+                              // halfWidth={true}
+                              value={formData.password}
+                              onChange={handleInputChange}
+                              className={`${
+                                formData.password != "" && "active"
+                              }`}
+                              error={errors.password}
+                            >
                               <ErrorMsg msg={errors.password} />
-                            )}
-                          </Input>
-                          <Input
-                            typePass={true}
-                            type={showCPassword ? "text" : "password"}
-                            name="confirm_password"
-                            placeholder="Confirm Password"
-                            icon={<PasswordIcon />}
-                            displayEye={showCPassword}
-                            handleShowPassword={() =>
-                              setShowCPassword(!showCPassword)
-                            }
-                            value={formData.confirm_password}
-                            onChange={handleInputChange}
-                            halfWidth={true}
-                            className={`${
-                              formData.confirm_password != "" && "active"
-                            }`}
-                          >
-                            {errors.confirm_password && (
+                            </Input>
+                          </div>
+                          <div className="input-and-error">
+                            <Input
+                              typePass={true}
+                              type={showCPassword ? "text" : "password"}
+                              name="confirm_password"
+                              placeholder="Confirm Password"
+                              icon={<PasswordIcon />}
+                              displayEye={showCPassword}
+                              handleShowPassword={() =>
+                                setShowCPassword(!showCPassword)
+                              }
+                              value={formData.confirm_password}
+                              onChange={handleInputChange}
+                              // halfWidth={true}
+                              className={`${
+                                formData.confirm_password != "" && "active"
+                              }`}
+                              error={errors.confirm_password}
+                            >
                               <ErrorMsg msg={errors.confirm_password} />
-                            )}
-                          </Input>
+                            </Input>
+                          </div>
                         </div>
                         <div className="checkboxAndForgetPasswordContainer">
-                          <Checkbox
-                            isChecked={agreed}
-                            setIsChecked={handleAgreed}
-                            label={termConditionText}
-                            whiteLabel={true}
-                          >
-                            <div className="term-condition-text">
-                              {agreedError && <ErrorMsg msg={agreedError} />}
-                            </div>
-                          </Checkbox>
+                          <div className="input-and-error">
+                            <Checkbox
+                              isChecked={agreed}
+                              setIsChecked={handleAgreed}
+                              label={termConditionText}
+                              whiteLabel={true}
+                              error={agreedError}
+                            >
+                              {/* <div className="term-condition-text"> */}
+                              <ErrorMsg msg={agreedError} />
+                              {/* </div> */}
+                            </Checkbox>
+                          </div>
                         </div>
-                        <Button
-                          type="button"
-                          text="Continue  To Register"
-                          clickFun={handleSubmit}
-                        />
+                        <div
+                          className={`w-full ${
+                            agreedError.length ? "mt-5" : ""
+                          } `}
+                        >
+                          <Button
+                            type="button"
+                            text="Continue  To Register"
+                            clickFun={handleSubmit}
+                          />
+                        </div>
 
                         <div className="linePartition">Or</div>
 
-                        <div className="flex flex-col md:flex-row justify-between w-full gap-4">
-                          <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px] ">
-                            <div
-                              className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
-                              // onClick={handleSignInWithGoogle}
-                            >
-                              Sign in with Google
+                        <div className="signInOptions">
+                          <div className="signInOptionButton">
+                            <div className="signInOptionButtonText">
+                              Join with Google
                             </div>
                             <div>
                               <GoogleSignInIcon />{" "}
                             </div>
                           </div>
-                          <div className="w-full flex max-w-full h-12 px-3 py-[18px] gap-5 justify-center items-center flex-[1_0_0] border border-white rounded-[8px]">
-                            <div
-                              className="text-white text-center text-[14px] md:text-[18px] font-medium leading-normal "
-                              // onClick={handleSignInWithApple}
-                            >
-                              Sign in with Apple
+                          <div className="signInOptionButton">
+                            <div className="signInOptionButtonText">
+                              Join with Apple
                             </div>
                             <div>
                               <AppleSignInIcon />{" "}
@@ -410,16 +421,9 @@ const TalentRegister = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-8 flex-col">
-                          <div className="text-[20px] font-medium leading-normal foundation-violet-violet-200 text-center">
-                            Already have an account?{" "}
-                            <Link
-                              className="font-medium no-underline foundation-blue-primary-blue-500"
-                              href={"/"}
-                            >
-                              Sign In
-                            </Link>
-                          </div>
+                        <div className="notHaveAccount">
+                          Already have an account?{" "}
+                          <Link href={"/"}>Sign In</Link>
                         </div>
                       </div>
                     </div>
