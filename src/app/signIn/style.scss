@@ -162,6 +162,9 @@
     .signIn-form-fields-animated-active {
       opacity: 1;
       margin-top: 6rem;
+      @media (max-width: 360px) {
+        margin-top: 7rem;
+      }
     }
   }
 

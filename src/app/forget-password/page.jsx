@@ -102,19 +102,19 @@ const ForgetPassword = ({
               </div>
               <div className="w-full h-[1px] bg-[#f1b0ea]"></div>
 
-              <div
-                className="forget-password-Buttons"
-                onClick={() => setShowForgetPasswordPage(false)}
-              >
+              <div className="forget-password-Buttons">
                 {/* <Link href={"/"}> */}
-                <div className="forget-password-Button">
+                <div
+                  className="forget-password-Button"
+                  onClick={() => setShowForgetPasswordPage(false)}
+                >
                   <div className="forget-password-Button-text">
                     Back To Sign in
                   </div>
                 </div>
                 {/* </Link> */}
                 <div
-                  className="flex w-full md:w-[300px] h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer bgGradientOne"
+                  className="flex w-full h-12 px-3 py-[18px] justify-center items-center gap-5 flex-[1_0_0] border-[1px]  border-solid border-white rounded-[8px] cursor-pointer bgGradientOne"
                   onClick={handleSentEmailMsg}
                 >
                   <div className="textWhite text-[20px] font-semibold leading-normal">
