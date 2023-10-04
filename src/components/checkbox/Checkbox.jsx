@@ -25,7 +25,9 @@ const Checkbox = (props) => {
           )}
         </div>
         <div
-          className={`checkboxLabel${whiteLabel ? " white-text" : ""}`}
+          className={`checkboxLabel select-none ${
+            whiteLabel ? " white-text" : ""
+          }`}
           onClick={() => setIsChecked()}
         >
           {label}

@@ -55,7 +55,8 @@ const SignIn = () => {
   }, [showForgetPasswordPage]);
 
   const router = useRouter();
-  const handleShowPassword = () => {
+  const handleShowPassword = (e) => {
+    e.preventDefault();
     setShowPassword(!showPassword);
   };
 
@@ -323,7 +324,7 @@ const SignIn = () => {
                     href={"/forget-password"}
                   > */}{" "}
                   <p
-                    className="forgetPasswordContainer"
+                    className="forgetPasswordContainer select-none"
                     onClick={() => {
                       setShowForgetPasswordPage(true);
                       if (animateSignInFormRef.current) {
@@ -337,12 +338,12 @@ const SignIn = () => {
                   {/* </Link> */}
                 </div>
 
-                <div className="linePartition">Or</div>
+                <div className="linePartition select-none">Or</div>
 
                 <div className="signInOptions">
                   <div className="signInOptionButton">
                     <div
-                      className="signInOptionButtonText"
+                      className="signInOptionButtonText select-none"
                       onClick={handleSignInWithGoogle}
                     >
                       Sign in with Google
@@ -353,7 +354,7 @@ const SignIn = () => {
                   </div>
                   <div className="signInOptionButton">
                     <div
-                      className="signInOptionButtonText"
+                      className="signInOptionButtonText select-none"
                       onClick={handleSignInWithApple}
                     >
                       Sign in with Apple
@@ -364,7 +365,7 @@ const SignIn = () => {
                   </div>
                 </div>
 
-                <div className="notHaveAccount">
+                <div className="notHaveAccount select-none">
                   Don’t have an account?{" "}
                   <Link href={"/register"}> Register here </Link>
                 </div>

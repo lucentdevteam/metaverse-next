@@ -19,7 +19,7 @@ const ErrorMsg = ({ msg }) => {
                 />
               </g>
             </svg>
-            <p>{msg}</p>
+            <p className="select-none">{msg}</p>
           </>
         ) : (
           <></>

@@ -17,6 +17,11 @@ const Input = ({
   children,
   error,
 }) => {
+  const handleIconClick = (e) => {
+    e.preventDefault(); // Prevent text selection
+    handleShowPassword(e);
+  };
+
   return (
     <div className={`input-container${halfWidth ? " half-width" : ""}`}>
       <div
@@ -34,7 +39,7 @@ const Input = ({
         />
         <label className="input-label">{placeholder}</label>
         {(type === "password" || typePass) && (
-          <span className="icon right" onClick={() => handleShowPassword()}>
+          <span className="icon right" onClick={handleIconClick}>
             {displayEye ? <OpenEyeIcon /> : <CloseEyeIcon />}
           </span>
         )}
