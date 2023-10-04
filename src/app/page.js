@@ -13,7 +13,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
 
-  console.log({ isOpen1 });
+  console.log({ isOpen1, userDetails });
 
   return (
     <div className="body-content">
