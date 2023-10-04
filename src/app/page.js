@@ -55,7 +55,7 @@ export default function Home() {
               <button onClick={() => setIsOpen1(true)}>Click It</button>
             </motion.div>
           )}
-        </motion.div>
+        </motion.div> 
       </div> */}
       {userDetails && userDetails?.isUserLoggedIn ? null : <SignIn />}
     </div>
