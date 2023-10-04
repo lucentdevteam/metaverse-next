@@ -302,9 +302,15 @@ const SignIn = () => {
                     <ErrorMsg msg={passwordError} />
                   </Input>
                 </div>
-                <div style={{ width: "100%" }}>
+                <div
+                  className={`w-full ${
+                    loginError.length ? "mb-5" : ""
+                  } relative `}
+                >
                   <Button type="button" text="Submit" clickFun={handleSubmit} />
-                  <div>{loginError && <ErrorMsg msg={loginError} />}</div>
+                  <div>
+                    <ErrorMsg msg={loginError} />
+                  </div>
                 </div>
 
                 <div className="checkboxAndForgetPasswordContainer">

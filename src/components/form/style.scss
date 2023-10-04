@@ -3,20 +3,30 @@
 // For Title
 .title-container {
   .title {
+    // @apply text-[32px] font-bold text-center text-white leading-none;
+
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     text-align: center;
     color: white;
+
     animation:  titleFadeIn 1s ease-in-out;
 
     @keyframes titleFadeIn {
       0% { opacity: 0; }
       100% { opacity: 1; }
     }
+
+    @media (max-width: 768px) {
+      font-size: 22px;
+    }
   }
   .sub-title {
+
+    // @apply text-[20px] font-normal leading-none pt-3 text-white text-center ;
+
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -24,7 +34,26 @@
     padding-top: 12px;
     color: white;
     text-align: center;
+
+    animation:  subtitleFadeIn 1s ease-in-out;
+
+    @keyframes titleFadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 412px) {
+      font-size: 12px;
+    }
+
     a {
+
+      // @apply text-[#08a0d8] cursor-pointer;
+      
       color: #08a0d8;
       cursor: pointer;
     }
@@ -39,6 +68,26 @@
 
 .forget-pwd-active {
   transform: translateY(200%);
+
+  @media (max-width: 768px) {
+    transform: translateY(250%);
+  }
+
+  @media (max-width: 550px) {
+    transform: translateY(250%);
+  }
+
+  @media (max-width:450px) {
+    transform: translateY(255%);
+  }
+
+  @media (max-width:390px) {
+    transform: translateY(200%);
+  }
+
+  @media (max-width:360px) {
+    transform: translateY(160%);
+  }
 }
 
 .signIn-animation {
@@ -49,6 +98,22 @@
 
 .signIn-animation-active {
   transform: translateY(-400%);
+
+  @media (max-width: 768px) {
+    transform: translateY(-550%);
+  }
+
+  @media (max-width: 600px) {
+    transform: translateY(-430%);
+  }
+
+  @media (max-width:450px) {
+    transform: translateY(-460%);
+  }
+
+  @media (max-width:390px) {
+    transform: translateY(-480%);
+  }
 }
 
 // For Inputs
@@ -170,6 +235,7 @@
   display: flex;
   gap: 5px;
   margin-top: 6px;
+  align-items: center;
   p {
     margin: 0;
     color: #fff;
