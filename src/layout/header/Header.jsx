@@ -83,16 +83,20 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-wrapper">
-        <div className="header-logo">
+        <div className="header-logo placeholder:">
           <Link href={"/"}>
             <SiteLogo />
           </Link>
         </div>
         <div className="header-button">
-          {userDetails && userDetails?.isUserLoggedIn && userDetails?.userDetails?.user_type?.length > 0 ? (
-            <div className="" style={{ display: 'flex', gap: '10px'  }}>
+          {userDetails &&
+          userDetails?.isUserLoggedIn &&
+          userDetails?.userDetails?.user_type?.length > 0 ? (
+            <div className="" style={{ display: "flex", gap: "10px" }}>
               <a>
-                <div className="redirect-button">{userDetails?.userDetails?.first_name}</div>
+                <div className="redirect-button">
+                  {userDetails?.userDetails?.first_name}
+                </div>
               </a>
               <a onClick={handleSignOut}>
                 <div className="redirect-button">Sign Out</div>
