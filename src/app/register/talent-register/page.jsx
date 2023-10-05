@@ -201,6 +201,14 @@ const TalentRegister = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    const newError = { ...errors };
+
+    setErrors({
+      ...newError,
+      [name]: "",
+    });
+
     setFormData({
       ...formData,
       [name]: value,
