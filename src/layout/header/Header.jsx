@@ -89,14 +89,18 @@ const Header = () => {
           </Link>
         </div>
         <div className="header-button">
-          {userDetails && userDetails?.isUserLoggedIn && userDetails?.userDetails?.user_type?.length > 0 ? (
-            <div className="" style={{ display: 'flex', gap: '10px'  }}>
-              <a>
-                <div className="redirect-button">{userDetails?.userDetails?.first_name}</div>
-              </a>
-              <a onClick={handleSignOut}>
+          {userDetails &&
+          userDetails?.isUserLoggedIn &&
+          userDetails?.userDetails?.user_type?.length > 0 ? (
+            <div className="" style={{ display: "flex", gap: "10px" }}>
+              <div>
+                <div className="redirect-button">
+                  {userDetails?.userDetails?.first_name}
+                </div>
+              </div>
+              <div onClick={handleSignOut}>
                 <div className="redirect-button">Sign Out</div>
-              </a>
+              </div>
             </div>
           ) : (
             renderRedirectButton()
