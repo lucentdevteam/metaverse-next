@@ -262,10 +262,11 @@
   display: flex;
   gap: 5px;
   margin-top: 6px;
-  align-items: center;
+  // align-items: center;
   p {
     margin: 0;
     color: #fff;
+    line-height: 1;
   }
   position: absolute;
   opacity: 0;
@@ -276,6 +277,7 @@
 .error-msg.show {
   opacity: 1;
   transform: translateY(-85%);
+  height: 25px;
 }
 
 .input-error-wrapper {
