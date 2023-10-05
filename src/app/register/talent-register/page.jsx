@@ -399,7 +399,7 @@ const TalentRegister = () => {
                         <div
                           className={`w-full ${
                             agreedError.length ? "mt-5" : ""
-                          } `}
+                          } relative`}
                         >
                           <Button
                             type="button"

@@ -376,16 +376,16 @@ const ClientRegister = () => {
                       <div
                         className={`w-full ${
                           agreedError.length ? "mt-5" : ""
-                        } `}
+                        } relative`}
                       >
-                        <Button
-                          type="button"
-                          text="Continue  To Register"
-                          clickFun={handleSubmit}
-                        />
-                        {errors.clientRegisterError && (
+                        <div className="input-and-error">
+                          <Button
+                            type="button"
+                            text="Continue  To Register"
+                            clickFun={handleSubmit}
+                          />
                           <ErrorMsg msg={errors.clientRegisterError} />
-                        )}
+                        </div>
                       </div>
 
                       <div className="register-container">
